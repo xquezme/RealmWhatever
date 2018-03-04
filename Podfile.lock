@@ -1,0 +1,26 @@
+PODS:
+  - Nimble (7.0.3)
+  - Quick (1.2.0)
+  - Realm (3.1.0):
+    - Realm/Headers (= 3.1.0)
+  - Realm/Headers (3.1.0)
+  - RealmSwift (3.1.0):
+    - Realm (= 3.1.0)
+  - RxSwift (4.1.0)
+
+DEPENDENCIES:
+  - Nimble (= 7.0.3)
+  - Quick (= 1.2.0)
+  - RealmSwift (= 3.1.0)
+  - RxSwift (= 4.1.0)
+
+SPEC CHECKSUMS:
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  Realm: 09513d7c054678d65cd02ce09871f805b0d758ac
+  RealmSwift: e868fee9b10e5490ad94b6b6ecd9027944da1824
+  RxSwift: 4219941c1244c88002901bd87a69d3aea9ae71f0
+
+PODFILE CHECKSUM: dafd5c0d9f3155437ac065fa232bf120a22c2cec
+
+COCOAPODS: 1.4.0
