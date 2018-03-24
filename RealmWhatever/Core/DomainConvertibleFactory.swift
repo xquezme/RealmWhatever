@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol DomainConvertibleFactoryType: AnyObject {
+public protocol DomainConvertibleFactoryType {
     associatedtype PersistenceModel
     associatedtype DomainModel: Hashable
     static func createDomainModel(withPersistenceModel persistenceModel: PersistenceModel) -> DomainModel?

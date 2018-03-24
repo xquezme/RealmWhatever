@@ -1,31 +1,23 @@
 //
-//  QueryableRepository+Realm+Rx.swift
+//  Provider+Realm+Reactive.swift
 //  RealmWhatever
 //
-//  Created by Sergey Pimenov on 02/03/2018.
+//  Created by Sergey Pimenov on 24/03/2018.
 //  Copyright © 2018 Sergey Pimenov. All rights reserved.
 //
 
 import Foundation
-import RxSwift
+import ReactiveSwift
 import RealmSwift
 
-extension QueryableRepository: ReactiveCompatible {}
+extension Provider: ReactiveExtensionsProvider {}
 
-public extension Reactive where Base: QueryableRepositoryType, Base.PersistenceModel: RealmSwift.Object {
-    public func query(_ specification: Base.QuerySpecification) -> Observable<[Base.DomainModel]> {
-        let realm = try! Realm()
-        let realmObjects = realm.objects(Base.PersistenceModel.self).apply(specification)
-        let domainObjects: [Base.DomainModel] = realmObjects.flatMap {
-            Base.Factory.createDomainModel(withPersistenceModel: $0)
-        }
-
-        let immediateObservable = Observable<[Base.DomainModel]>.just(domainObjects)
-
-        let updateObservable = Observable<[Base.DomainModel]>.create { observer in
+public extension Reactive where Base: ProviderType, Base.PersistenceModel: RealmSwift.Object {
+    public func query(_ specification: Base.Specification, includeImmediateResults: Bool = true) -> SignalProducer<[Base.DomainModel], NSError> {
+        let updateProducer = SignalProducer<[Base.DomainModel], NSError> { observer, lifetime in
             var token: NotificationToken!
 
-            RxRealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runSync {
                 let realm = try! Realm()
                 let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
 
@@ -39,7 +31,7 @@ public extension Reactive where Base: QueryableRepositoryType, Base.PersistenceM
                         realmObjects = latestValue
                     case let .error(error):
                         token?.invalidate()
-                        observer.onError(error)
+                        observer.send(error: error as NSError)
                         return
                     }
 
@@ -47,33 +39,32 @@ public extension Reactive where Base: QueryableRepositoryType, Base.PersistenceM
                         Base.Factory.createDomainModel(withPersistenceModel: $0)
                     }
 
-                    observer.onNext(domainObjects)
+                    observer.send(value: domainObjects)
                 }
             }
 
-            return Disposables.create {
-                RxRealmNotificationThreadWrapper.shared.runSync {
+            lifetime.observeEnded {
+                RealmNotificationThreadWrapper.shared.runSync {
                     token!.invalidate()
                 }
             }
         }
 
-        return immediateObservable
-            .concat(updateObservable)
-            .distinctUntilChanged({ $0 == $1 })
+        guard includeImmediateResults else {
+            return updateProducer
+        }
+
+        let domainObjects = base.query(specification)
+        let immediateSignalProducer = SignalProducer<[Base.DomainModel], NSError>.init(value: domainObjects)
+
+        return immediateSignalProducer.concat(updateProducer)
     }
-    
-    public func queryOne(_ specification: Base.QuerySpecification) -> Observable<Base.DomainModel?> {
-        let realm = try! Realm()
-        let realmObjects = realm.objects(Base.PersistenceModel.self).apply(specification)
-        let domainObject = Base.Factory.createDomainModel(withPersistenceModel: realmObjects.first)
 
-        let immediateObservable = Observable<Base.DomainModel?>.just(domainObject)
-
-        let updateObservable = Observable<Base.DomainModel?>.create { observer in
+    public func queryOne(_ specification: Base.Specification, includeImmediateResult: Bool = true) -> SignalProducer<Base.DomainModel?, NSError> {
+        let updateProducer = SignalProducer<Base.DomainModel?, NSError> { observer, lifetime in
             var token: NotificationToken!
 
-            RxRealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runSync {
                 let realm = try! Realm()
                 let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
 
@@ -87,37 +78,38 @@ public extension Reactive where Base: QueryableRepositoryType, Base.PersistenceM
                         realmObjects = latestValue
                     case let .error(error):
                         token?.invalidate()
-                        observer.onError(error)
+                        observer.send(error: error as NSError)
                         return
                     }
 
                     let domainObject = Base.Factory.createDomainModel(withPersistenceModel: realmObjects.first)
-                    observer.onNext(domainObject)
+
+                    observer.send(value: domainObject)
                 }
             }
 
-            return Disposables.create {
-                RxRealmNotificationThreadWrapper.shared.runSync {
+            lifetime.observeEnded {
+                RealmNotificationThreadWrapper.shared.runSync {
                     token!.invalidate()
                 }
             }
         }
-        
-        return immediateObservable
-            .concat(updateObservable)
-            .distinctUntilChanged({ $0 == $1 })
+
+        guard includeImmediateResult else {
+            return updateProducer
+        }
+
+        let domainObject = base.queryOne(specification)
+        let immediateSignalProducer = SignalProducer<Base.DomainModel?, NSError>.init(value: domainObject)
+
+        return immediateSignalProducer.concat(updateProducer)
     }
 
-    public func count(_ specification: Base.QuerySpecification) -> Observable<Int> {
-        let realm = try! Realm()
-        let realmObjects = realm.objects(Base.PersistenceModel.self).apply(specification)
-
-        let immediateObservable = Observable<Int>.just(realmObjects.count)
-
-        let updateObservable = Observable<Int>.create { observer in
+    public func count(_ specification: Base.Specification, includeImmediateResults: Bool = true) -> SignalProducer<Int, NSError> {
+        let updateProducer = SignalProducer<Int, NSError> { observer, lifetime in
             var token: NotificationToken!
 
-            RxRealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runSync {
                 let realm = try! Realm()
                 let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
 
@@ -131,23 +123,28 @@ public extension Reactive where Base: QueryableRepositoryType, Base.PersistenceM
                         realmObjects = latestValue
                     case let .error(error):
                         token?.invalidate()
-                        observer.onError(error)
+                        observer.send(error: error as NSError)
                         return
                     }
 
-                    observer.onNext(realmObjects.count)
+                    observer.send(value: realmObjects.count)
                 }
             }
 
-            return Disposables.create {
-                RxRealmNotificationThreadWrapper.shared.runSync {
+            lifetime.observeEnded {
+                RealmNotificationThreadWrapper.shared.runSync {
                     token!.invalidate()
                 }
             }
         }
 
-        return immediateObservable
-            .concat(updateObservable)
-            .distinctUntilChanged({ $0 == $1 })
+        guard includeImmediateResults else {
+            return updateProducer
+        }
+
+        let count = base.count(specification)
+        let immediateSignalProducer = SignalProducer<Int, NSError>.init(value: count)
+
+        return immediateSignalProducer.concat(updateProducer)
     }
 }

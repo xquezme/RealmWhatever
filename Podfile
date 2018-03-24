@@ -7,9 +7,15 @@ workspace 'RealmWhatever'
 project 'RealmWhatever'
 
 target 'RealmWhatever' do
-  pod 'RealmSwift', '3.1.0'
-  pod 'RxSwift', '4.1.0'
-  
+  # Realm
+  pod 'RealmSwift', '3.3.0'
+
+  # Rx
+  pod 'RxSwift', '4.1.2'
+
+  # Reactive
+  pod 'ReactiveSwift', '3.1.0'
+
   target 'RealmWhateverTests' do
     inherit! :search_paths
     pod 'Nimble', '7.0.3'

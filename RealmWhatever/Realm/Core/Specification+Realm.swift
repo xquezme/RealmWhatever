@@ -1,5 +1,5 @@
 //
-//  QueryableSpecification+Realm.swift
+//  Specification+Realm.swift
 //  RealmWhatever
 //
 //  Created by Sergey Pimenov on 04/03/2018.
@@ -20,7 +20,7 @@ extension Results {
         return self.sorted(byKeyPath: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
 
-    public func apply(_ specification: QueryableSpecificationType) -> Results<Element> {
+    public func apply(_ specification: SpecificationType) -> Results<Element> {
         return self
             .filter(specification.predicate())
             .sorted(specification.sortDescriptor())

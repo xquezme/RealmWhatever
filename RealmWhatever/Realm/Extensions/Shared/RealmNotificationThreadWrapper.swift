@@ -1,5 +1,5 @@
 //
-//  RxRealmNotificationThreadWrapper.swift
+//  RealmNotificationThreadWrapper.swift
 //  RealmWhatever
 //
 //  Created by Sergey Pimenov on 02/03/2018.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-final class RxRealmNotificationThreadWrapper: NSObject {
-    static let shared = RxRealmNotificationThreadWrapper()
+final class RealmNotificationThreadWrapper: NSObject {
+    static let shared = RealmNotificationThreadWrapper()
     private override init() { super.init() }
 
     private lazy var thread: Thread = {
@@ -18,7 +18,7 @@ final class RxRealmNotificationThreadWrapper: NSObject {
             selector: #selector(self.loop),
             object: nil
         )
-        thread.name = "RxRealmWhateverNotificationThread"
+        thread.name = "RealmWhateverNotificationThread"
         thread.start()
         return thread
     }()

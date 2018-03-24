@@ -8,20 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		CC488AD27850F8EE33B5EF98 /* Pods_RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 310082A79D54C86F4D3DEEFD /* Pods_RealmWhatever.framework */; };
-		CF464CA8204C28920032C668 /* QueryableSpecification+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA7204C28920032C668 /* QueryableSpecification+Realm.swift */; };
-		CF464CAA204C28F00032C668 /* QueryableRepository+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA9204C28F00032C668 /* QueryableRepository+Realm.swift */; };
+		CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA7204C28920032C668 /* Specification+Realm.swift */; };
+		CF464CAA204C28F00032C668 /* Provider+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA9204C28F00032C668 /* Provider+Realm.swift */; };
+		CF6EF2F9206696B10092FF1F /* Provider+Realm+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */; };
 		CF979136204889E500E70FA3 /* RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF97912C204889E400E70FA3 /* RealmWhatever.framework */; };
 		CF97913B204889E500E70FA3 /* PlainRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97913A204889E500E70FA3 /* PlainRepositorySpec.swift */; };
 		CF97913D204889E500E70FA3 /* RealmWhatever.h in Headers */ = {isa = PBXBuildFile; fileRef = CF97912F204889E500E70FA3 /* RealmWhatever.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CF97914A20488A5100E70FA3 /* QueryableSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914920488A5100E70FA3 /* QueryableSpecification.swift */; };
-		CF97914C20488BB700E70FA3 /* QueryableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914B20488BB700E70FA3 /* QueryableRepository.swift */; };
+		CF97914A20488A5100E70FA3 /* Specification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914920488A5100E70FA3 /* Specification.swift */; };
+		CF97914C20488BB700E70FA3 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914B20488BB700E70FA3 /* Provider.swift */; };
 		CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */; };
 		CF97915020488E0100E70FA3 /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914F20488E0100E70FA3 /* RLMUser.swift */; };
 		CF979152204891E800E70FA3 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF979151204891E800E70FA3 /* UserRepository.swift */; };
 		CF9791542048921400E70FA3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791532048921400E70FA3 /* User.swift */; };
 		CF9791562048922B00E70FA3 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791552048922B00E70FA3 /* UserFactory.swift */; };
-		CFE5007A204C340C00FD8A52 /* RxRealmNotificationThreadWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50078204C340C00FD8A52 /* RxRealmNotificationThreadWrapper.swift */; };
-		CFE5007B204C340C00FD8A52 /* QueryableRepository+Realm+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50079204C340C00FD8A52 /* QueryableRepository+Realm+Rx.swift */; };
+		CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */; };
+		CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */; };
 		DBEDEB142309AB11686AAC19 /* Pods_RealmWhateverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945F6ACA1DAB2B25D6BB70F /* Pods_RealmWhateverTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,23 +41,24 @@
 		71E98E1D8901E896B1BC3497 /* Pods-RealmWhateverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhateverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FF969BB0B3C5833237902BC /* Pods-RealmWhateverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhateverTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests.release.xcconfig"; sourceTree = "<group>"; };
 		949DFCAC80E5883886A57905 /* Pods-RealmWhatever.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhatever.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever.debug.xcconfig"; sourceTree = "<group>"; };
-		CF464CA7204C28920032C668 /* QueryableSpecification+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QueryableSpecification+Realm.swift"; sourceTree = "<group>"; };
-		CF464CA9204C28F00032C668 /* QueryableRepository+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QueryableRepository+Realm.swift"; sourceTree = "<group>"; };
+		CF464CA7204C28920032C668 /* Specification+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Specification+Realm.swift"; sourceTree = "<group>"; };
+		CF464CA9204C28F00032C668 /* Provider+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Realm.swift"; sourceTree = "<group>"; };
+		CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Reactive.swift"; sourceTree = "<group>"; };
 		CF97912C204889E400E70FA3 /* RealmWhatever.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmWhatever.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF97912F204889E500E70FA3 /* RealmWhatever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmWhatever.h; sourceTree = "<group>"; };
 		CF979130204889E500E70FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF979135204889E500E70FA3 /* RealmWhateverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmWhateverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF97913A204889E500E70FA3 /* PlainRepositorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainRepositorySpec.swift; sourceTree = "<group>"; };
 		CF97913C204889E500E70FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CF97914920488A5100E70FA3 /* QueryableSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryableSpecification.swift; sourceTree = "<group>"; };
-		CF97914B20488BB700E70FA3 /* QueryableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryableRepository.swift; sourceTree = "<group>"; };
+		CF97914920488A5100E70FA3 /* Specification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specification.swift; sourceTree = "<group>"; };
+		CF97914B20488BB700E70FA3 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConvertibleFactory.swift; sourceTree = "<group>"; };
 		CF97914F20488E0100E70FA3 /* RLMUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMUser.swift; sourceTree = "<group>"; };
 		CF979151204891E800E70FA3 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		CF9791532048921400E70FA3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CF9791552048922B00E70FA3 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
-		CFE50078204C340C00FD8A52 /* RxRealmNotificationThreadWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxRealmNotificationThreadWrapper.swift; sourceTree = "<group>"; };
-		CFE50079204C340C00FD8A52 /* QueryableRepository+Realm+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QueryableRepository+Realm+Rx.swift"; sourceTree = "<group>"; };
+		CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmNotificationThreadWrapper.swift; sourceTree = "<group>"; };
+		CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Rx.swift"; sourceTree = "<group>"; };
 		EBC5E407AEE299C0FC945F04 /* Pods-RealmWhatever.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhatever.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever.release.xcconfig"; sourceTree = "<group>"; };
 		F945F6ACA1DAB2B25D6BB70F /* Pods_RealmWhateverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmWhateverTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -117,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				CF464CA5204C28570032C668 /* Core */,
-				CFE50077204C340C00FD8A52 /* Rx */,
+				CF6EF2F7206695F00092FF1F /* Extensions */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -125,10 +127,36 @@
 		CF464CA5204C28570032C668 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				CF464CA7204C28920032C668 /* QueryableSpecification+Realm.swift */,
-				CF464CA9204C28F00032C668 /* QueryableRepository+Realm.swift */,
+				CF464CA7204C28920032C668 /* Specification+Realm.swift */,
+				CF464CA9204C28F00032C668 /* Provider+Realm.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		CF6EF2F5206695850092FF1F /* Reactive */ = {
+			isa = PBXGroup;
+			children = (
+				CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */,
+			);
+			path = Reactive;
+			sourceTree = "<group>";
+		};
+		CF6EF2F6206695AE0092FF1F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		CF6EF2F7206695F00092FF1F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CF6EF2F5206695850092FF1F /* Reactive */,
+				CFE50077204C340C00FD8A52 /* Rx */,
+				CF6EF2F6206695AE0092FF1F /* Shared */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CF979122204889E400E70FA3 = {
@@ -175,8 +203,8 @@
 		CF97914820488A4800E70FA3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				CF97914920488A5100E70FA3 /* QueryableSpecification.swift */,
-				CF97914B20488BB700E70FA3 /* QueryableRepository.swift */,
+				CF97914920488A5100E70FA3 /* Specification.swift */,
+				CF97914B20488BB700E70FA3 /* Provider.swift */,
 				CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */,
 			);
 			path = Core;
@@ -185,8 +213,7 @@
 		CFE50077204C340C00FD8A52 /* Rx */ = {
 			isa = PBXGroup;
 			children = (
-				CFE50078204C340C00FD8A52 /* RxRealmNotificationThreadWrapper.swift */,
-				CFE50079204C340C00FD8A52 /* QueryableRepository+Realm+Rx.swift */,
+				CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -360,16 +387,20 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,13 +433,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF97914A20488A5100E70FA3 /* QueryableSpecification.swift in Sources */,
-				CF464CAA204C28F00032C668 /* QueryableRepository+Realm.swift in Sources */,
-				CF97914C20488BB700E70FA3 /* QueryableRepository.swift in Sources */,
-				CF464CA8204C28920032C668 /* QueryableSpecification+Realm.swift in Sources */,
-				CFE5007A204C340C00FD8A52 /* RxRealmNotificationThreadWrapper.swift in Sources */,
+				CF97914A20488A5100E70FA3 /* Specification.swift in Sources */,
+				CF464CAA204C28F00032C668 /* Provider+Realm.swift in Sources */,
+				CF97914C20488BB700E70FA3 /* Provider.swift in Sources */,
+				CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */,
+				CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */,
+				CF6EF2F9206696B10092FF1F /* Provider+Realm+Reactive.swift in Sources */,
 				CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */,
-				CFE5007B204C340C00FD8A52 /* QueryableRepository+Realm+Rx.swift in Sources */,
+				CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

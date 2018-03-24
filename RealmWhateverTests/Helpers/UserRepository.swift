@@ -14,7 +14,7 @@ enum QuerySpecification {
     case byUUID(uuid: UUID)
 }
 
-extension QuerySpecification: QueryableSpecificationType {
+extension QuerySpecification: SpecificationType {
     func predicate() -> NSPredicate? {
         switch self {
         case .byUUID(let uuid):
@@ -23,6 +23,6 @@ extension QuerySpecification: QueryableSpecificationType {
     }
 }
 
-final class UserRepository: RealmWhatever.QueryableRepository<QuerySpecification, UserFactory> {
+final class UserRepository: RealmWhatever.Provider<QuerySpecification, UserFactory> {
 
 }

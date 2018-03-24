@@ -1,5 +1,5 @@
 //
-//  QueryableRepository.swift
+//  Provider.swift
 //  RealmWhatever
 //
 //  Created by Sergey Pimenov on 01/03/2018.
@@ -9,8 +9,8 @@
 import Foundation
 import RealmSwift
 
-public protocol QueryableRepositoryType: class {
-    associatedtype QuerySpecification: QueryableSpecificationType
+public protocol ProviderType: class {
+    associatedtype Specification: SpecificationType
     associatedtype PersistenceModel
     associatedtype DomainModel
     associatedtype Factory: DomainConvertibleFactoryType
@@ -19,11 +19,11 @@ public protocol QueryableRepositoryType: class {
             Factory.DomainModel == Self.DomainModel
 }
 
-open class QueryableRepository<
-    QuerySpecification_: QueryableSpecificationType,
+open class Provider<
+    Specification_: SpecificationType,
     Factory_: DomainConvertibleFactoryType
->: QueryableRepositoryType {
-    public typealias QuerySpecification = QuerySpecification_
+>: ProviderType {
+    public typealias Specification = Specification_
     public typealias Factory = Factory_
     public typealias PersistenceModel = Factory.PersistenceModel
     public typealias DomainModel = Factory.DomainModel

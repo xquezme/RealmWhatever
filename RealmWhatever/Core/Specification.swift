@@ -1,5 +1,5 @@
 //
-//  QueryableSpecification.swift
+//  Specification.swift
 //  RealmWhatever
 //
 //  Created by Sergey Pimenov on 01/03/2018.
@@ -9,12 +9,12 @@
 import Foundation
 import RealmSwift
 
-public protocol QueryableSpecificationType {
+public protocol SpecificationType {
     func predicate() -> NSPredicate?
     func sortDescriptor() -> NSSortDescriptor?
 }
 
-public extension QueryableSpecificationType {
+public extension SpecificationType {
     public func predicate() -> NSPredicate? {
         return nil
     }

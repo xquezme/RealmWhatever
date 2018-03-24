@@ -12,6 +12,10 @@ pod 'RealmWhatever'
 # or
 
 pod 'RealmWhatever/RxSwift'
+
+# or
+
+pod 'RealmWhatever/ReactiveSwift'
 ```
 
 Then run `pod install`.

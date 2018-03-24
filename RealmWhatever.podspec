@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RealmWhatever"
-  s.version      = "0.0.1-alpha"
+  s.version      = "0.0.2-alpha"
   s.summary      = "Persistence abstraction layer for Realm"
   s.description  = <<-EOS
   RealmWhatever abstracts persistence layer using Swift Generics to provide developers
@@ -22,8 +22,14 @@ Pod::Spec.new do |s|
   end
 
   s.subspec "RxSwift" do |ss|
-    ss.source_files = "RealmWhatever/Realm/Rx"
+    ss.source_files = "RealmWhatever/Realm/Extensions/Rx", "RealmWhatever/Realm/Extensions/Shared"
     ss.dependency "RealmWhatever/Core"
     ss.dependency "RxSwift", "~> 4"
+  end
+
+  s.subspec "ReactiveSwift" do |ss|
+    ss.source_files = "RealmWhatever/Realm/Extensions/Reactive", "RealmWhatever/Realm/Extensions/Shared"
+    ss.dependency "RealmWhatever/Core"
+    ss.dependency "ReactiveSwift", "~> 3"
   end
 end
