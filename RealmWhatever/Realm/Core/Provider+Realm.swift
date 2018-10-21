@@ -10,29 +10,31 @@ import Foundation
 import RealmSwift
 
 public extension ProviderType where PersistenceModel: RealmSwift.Object {
-    public func query(_ specification: Specification) -> [DomainModel] {
-        let realm = try! Realm()
+    public func query(_ specification: Specification) throws -> [DomainModel] {
+        let realm = try Realm()
 
         let realmObjects = realm.objects(PersistenceModel.self).apply(specification)
 
-        return realmObjects.flatMap {
-            Factory.createDomainModel(withPersistenceModel: $0)
+        return try realmObjects.map { realmObject in
+            try Factory.createDomainModel(withPersistenceModel: realmObject, realm: realm)
         }
     }
 
-    public func queryOne(_ specification: Specification) -> DomainModel? {
-        let realm = try! Realm()
+    public func queryOne(_ specification: Specification, policy: QueryOnePolicy = .last) throws -> DomainModel? {
+        let realm = try Realm()
 
         let realmObjects = realm.objects(PersistenceModel.self).apply(specification)
 
-        return Factory.createDomainModel(withPersistenceModel: realmObjects.first)
+        return try realmObjects.elementWithPolicy(policy: policy).flatMap { realmObject in
+            try Factory.createDomainModel(withPersistenceModel: realmObject, realm: realm)
+        }
     }
 
-    public func count(_ specification: Specification) -> Int {
-        let realm = try! Realm()
+    public func count(_ specification: Specification) throws -> Int {
+        let realm = try Realm()
 
-        let objects = realm.objects(PersistenceModel.self).apply(specification)
+        let realmObjects = realm.objects(PersistenceModel.self).apply(specification)
 
-        return objects.count
+        return realmObjects.count
     }
 }

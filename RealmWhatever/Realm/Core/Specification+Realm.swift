@@ -20,9 +20,18 @@ extension Results {
         return self.sorted(byKeyPath: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
 
-    public func apply(_ specification: SpecificationType) -> Results<Element> {
+    func apply(_ specification: SpecificationType) -> Results<Element> {
         return self
             .filter(specification.predicate())
             .sorted(specification.sortDescriptor())
+    }
+
+    func elementWithPolicy(policy: QueryOnePolicy) -> Element? {
+        switch policy {
+        case .first:
+            return self.first
+        case .last:
+            return self.last
+        }
     }
 }

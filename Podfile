@@ -8,17 +8,17 @@ project 'RealmWhatever'
 
 target 'RealmWhatever' do
   # Realm
-  pod 'RealmSwift', '3.3.0'
+  pod 'RealmSwift', '3.11.1'
 
   # Rx
-  pod 'RxSwift', '4.1.2'
+  pod 'RxSwift', '4.3.1'
 
   # Reactive
-  pod 'ReactiveSwift', '3.1.0'
+  pod 'ReactiveSwift', '4.0.0'
 
   target 'RealmWhateverTests' do
     inherit! :search_paths
-    pod 'Nimble', '7.0.3'
-    pod 'Quick', '1.2.0'
+    pod 'Nimble', '7.3.1'
+    pod 'Quick', '1.3.2'
   end
 end

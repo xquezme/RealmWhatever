@@ -10,46 +10,44 @@ import Foundation
 
 final class RealmNotificationThreadWrapper: NSObject {
     static let shared = RealmNotificationThreadWrapper()
-    private override init() { super.init() }
+
+    private override init() {
+        super.init()
+        self.thread.start()
+    }
 
     private lazy var thread: Thread = {
-        let thread = Thread(
-            target: self,
-            selector: #selector(self.loop),
-            object: nil
-        )
-        thread.name = "RealmWhateverNotificationThread"
-        thread.start()
+        let thread = Thread(target: self, selector: #selector(self.loop), object: nil)
+
+        thread.name = "RealmNotificationThread"
+
         return thread
     }()
 
     private var block: (() -> Void)!
 
-    @objc
-    private func loop() {
+    @objc private func loop() {
         while self.thread.isCancelled == false {
             RunLoop.current.run(
-                mode: RunLoopMode.defaultRunLoopMode,
+                mode: RunLoop.Mode.default,
                 before: .distantFuture
             )
         }
+
         Thread.exit()
     }
 
-    @objc
-    private func runBlock() {
-        self.block()
-    }
+    @objc private func runBlock() { self.block() }
 
     func runSync(_ block: @escaping () -> Void) {
         self.block = block
 
         perform(
-            #selector(self.runBlock),
+            #selector(runBlock),
             on: self.thread,
             with: nil,
             waitUntilDone: true,
-            modes: [RunLoopMode.defaultRunLoopMode.rawValue]
+            modes: [RunLoop.Mode.default.rawValue]
         )
     }
 
@@ -57,11 +55,11 @@ final class RealmNotificationThreadWrapper: NSObject {
         self.block = block
 
         perform(
-            #selector(self.runBlock),
+            #selector(runBlock),
             on: self.thread,
             with: nil,
             waitUntilDone: false,
-            modes: [RunLoopMode.defaultRunLoopMode.rawValue]
+            modes: [RunLoop.Mode.default.rawValue]
         )
     }
 }

@@ -8,19 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CC488AD27850F8EE33B5EF98 /* Pods_RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 310082A79D54C86F4D3DEEFD /* Pods_RealmWhatever.framework */; };
+		CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */; };
 		CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA7204C28920032C668 /* Specification+Realm.swift */; };
 		CF464CAA204C28F00032C668 /* Provider+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA9204C28F00032C668 /* Provider+Realm.swift */; };
-		CF6EF2F9206696B10092FF1F /* Provider+Realm+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */; };
 		CF979136204889E500E70FA3 /* RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF97912C204889E400E70FA3 /* RealmWhatever.framework */; };
-		CF97913B204889E500E70FA3 /* PlainRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97913A204889E500E70FA3 /* PlainRepositorySpec.swift */; };
 		CF97913D204889E500E70FA3 /* RealmWhatever.h in Headers */ = {isa = PBXBuildFile; fileRef = CF97912F204889E500E70FA3 /* RealmWhatever.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CF97914A20488A5100E70FA3 /* Specification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914920488A5100E70FA3 /* Specification.swift */; };
 		CF97914C20488BB700E70FA3 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914B20488BB700E70FA3 /* Provider.swift */; };
 		CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */; };
-		CF97915020488E0100E70FA3 /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914F20488E0100E70FA3 /* RLMUser.swift */; };
-		CF979152204891E800E70FA3 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF979151204891E800E70FA3 /* UserRepository.swift */; };
-		CF9791542048921400E70FA3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791532048921400E70FA3 /* User.swift */; };
-		CF9791562048922B00E70FA3 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791552048922B00E70FA3 /* UserFactory.swift */; };
 		CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */; };
 		CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */; };
 		DBEDEB142309AB11686AAC19 /* Pods_RealmWhateverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945F6ACA1DAB2B25D6BB70F /* Pods_RealmWhateverTests.framework */; };
@@ -241,7 +236,6 @@
 				CF979128204889E400E70FA3 /* Frameworks */,
 				CF979129204889E400E70FA3 /* Headers */,
 				CF97912A204889E400E70FA3 /* Resources */,
-				A75A4DBF1936F70489D73E5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -261,7 +255,6 @@
 				CF979132204889E500E70FA3 /* Frameworks */,
 				CF979133204889E500E70FA3 /* Resources */,
 				A94C81D438A899E0262709F0 /* [CP] Embed Pods Frameworks */,
-				93D97C0704D82AA6C4F8EE21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,12 +273,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Sergey Pimenov";
 				TargetAttributes = {
 					CF97912B204889E400E70FA3 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					CF979134204889E500E70FA3 = {
@@ -348,36 +341,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		93D97C0704D82AA6C4F8EE21 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A75A4DBF1936F70489D73E5F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A94C81D438A899E0262709F0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,7 +401,7 @@
 				CF97914C20488BB700E70FA3 /* Provider.swift in Sources */,
 				CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */,
 				CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */,
-				CF6EF2F9206696B10092FF1F /* Provider+Realm+Reactive.swift in Sources */,
+				CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */,
 				CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */,
 				CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */,
 			);
@@ -448,11 +411,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF9791542048921400E70FA3 /* User.swift in Sources */,
-				CF97915020488E0100E70FA3 /* RLMUser.swift in Sources */,
-				CF97913B204889E500E70FA3 /* PlainRepositorySpec.swift in Sources */,
-				CF9791562048922B00E70FA3 /* UserFactory.swift in Sources */,
-				CF979152204891E800E70FA3 /* UserRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +439,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -488,6 +447,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -516,7 +476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -541,6 +501,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -548,6 +509,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -570,7 +532,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -598,7 +560,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -620,7 +582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.xquezme.RealmWhatever;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

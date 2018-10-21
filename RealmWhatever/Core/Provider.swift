@@ -9,6 +9,11 @@
 import Foundation
 import RealmSwift
 
+public enum QueryOnePolicy {
+    case first
+    case last
+}
+
 public protocol ProviderType: class {
     associatedtype Specification: SpecificationType
     associatedtype PersistenceModel
