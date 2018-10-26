@@ -25,13 +25,4 @@ extension Results {
             .filter(specification.predicate())
             .sorted(specification.sortDescriptor())
     }
-
-    func elementWithPolicy(policy: QueryOnePolicy) -> Element? {
-        switch policy {
-        case .first:
-            return self.first
-        case .last:
-            return self.last
-        }
-    }
 }

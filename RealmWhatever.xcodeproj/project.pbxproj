@@ -16,6 +16,10 @@
 		CF97914A20488A5100E70FA3 /* Specification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914920488A5100E70FA3 /* Specification.swift */; };
 		CF97914C20488BB700E70FA3 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914B20488BB700E70FA3 /* Provider.swift */; };
 		CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */; };
+		CFA9D03F2183AAD800D8D550 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D03E2183AAD800D8D550 /* Cursor.swift */; };
+		CFA9D0412183AB7300D8D550 /* PinPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0402183AB7300D8D550 /* PinPolicy.swift */; };
+		CFA9D0432183AD4600D8D550 /* PinPolicy+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0422183AD4600D8D550 /* PinPolicy+Realm.swift */; };
+		CFA9D0452183AD5300D8D550 /* Cursor+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0442183AD5300D8D550 /* Cursor+Realm.swift */; };
 		CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */; };
 		CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */; };
 		DBEDEB142309AB11686AAC19 /* Pods_RealmWhateverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945F6ACA1DAB2B25D6BB70F /* Pods_RealmWhateverTests.framework */; };
@@ -52,6 +56,10 @@
 		CF979151204891E800E70FA3 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		CF9791532048921400E70FA3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CF9791552048922B00E70FA3 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
+		CFA9D03E2183AAD800D8D550 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
+		CFA9D0402183AB7300D8D550 /* PinPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPolicy.swift; sourceTree = "<group>"; };
+		CFA9D0422183AD4600D8D550 /* PinPolicy+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PinPolicy+Realm.swift"; sourceTree = "<group>"; };
+		CFA9D0442183AD5300D8D550 /* Cursor+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cursor+Realm.swift"; sourceTree = "<group>"; };
 		CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmNotificationThreadWrapper.swift; sourceTree = "<group>"; };
 		CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Rx.swift"; sourceTree = "<group>"; };
 		EBC5E407AEE299C0FC945F04 /* Pods-RealmWhatever.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhatever.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +132,8 @@
 			children = (
 				CF464CA7204C28920032C668 /* Specification+Realm.swift */,
 				CF464CA9204C28F00032C668 /* Provider+Realm.swift */,
+				CFA9D0422183AD4600D8D550 /* PinPolicy+Realm.swift */,
+				CFA9D0442183AD5300D8D550 /* Cursor+Realm.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -198,9 +208,11 @@
 		CF97914820488A4800E70FA3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				CF97914920488A5100E70FA3 /* Specification.swift */,
-				CF97914B20488BB700E70FA3 /* Provider.swift */,
+				CFA9D03E2183AAD800D8D550 /* Cursor.swift */,
 				CF97914D20488C9800E70FA3 /* DomainConvertibleFactory.swift */,
+				CF97914B20488BB700E70FA3 /* Provider.swift */,
+				CF97914920488A5100E70FA3 /* Specification.swift */,
+				CFA9D0402183AB7300D8D550 /* PinPolicy.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -398,9 +410,13 @@
 			files = (
 				CF97914A20488A5100E70FA3 /* Specification.swift in Sources */,
 				CF464CAA204C28F00032C668 /* Provider+Realm.swift in Sources */,
+				CFA9D0432183AD4600D8D550 /* PinPolicy+Realm.swift in Sources */,
 				CF97914C20488BB700E70FA3 /* Provider.swift in Sources */,
 				CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */,
 				CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */,
+				CFA9D0412183AB7300D8D550 /* PinPolicy.swift in Sources */,
+				CFA9D0452183AD5300D8D550 /* Cursor+Realm.swift in Sources */,
+				CFA9D03F2183AAD800D8D550 /* Cursor.swift in Sources */,
 				CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */,
 				CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */,
 				CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */,

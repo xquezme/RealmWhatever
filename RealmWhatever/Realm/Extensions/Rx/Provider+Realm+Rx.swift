@@ -15,6 +15,7 @@ extension Provider: ReactiveCompatible {}
 public extension Reactive where Base: ProviderType {
     public func query(
         _ specification: Base.Specification,
+        cursor: Cursor = .default,
         includeImmediateResults: Bool = true
     ) -> Observable<[Base.DomainModel]> {
         let updateObservable = Observable<[Base.DomainModel]>.create { observer in
@@ -40,9 +41,10 @@ public extension Reactive where Base: ProviderType {
                         }
 
                         do {
-                            let domainObjects: [Base.DomainModel] = try realmObjects.map { realmObject in
-                                try Base.Factory.createDomainModel(withPersistenceModel: realmObject, realm: realm)
-                            }
+                            let domainObjects: [Base.DomainModel] = try Base.Factory.createDomainModels(
+                                with: realmObjects.apply(cursor),
+                                realm: realm
+                            )
                             observer.onNext(domainObjects)
                         } catch let error {
                             observer.onError(error)
@@ -65,7 +67,7 @@ public extension Reactive where Base: ProviderType {
         }
 
         do {
-            let domainObjects = try self.base.query(specification)
+            let domainObjects = try self.base.query(specification, cursor: cursor)
             let immediateObservable = Observable<[Base.DomainModel]>.just(domainObjects)
 
             return immediateObservable.concat(updateObservable).distinctUntilChanged()
@@ -76,7 +78,7 @@ public extension Reactive where Base: ProviderType {
     
     public func queryOne(
         _ specification: Base.Specification,
-        policy: QueryOnePolicy = .last,
+        pinPolicy: PinPolicy = .beginning,
         includeImmediateResult: Bool = true
     ) -> Observable<Base.DomainModel?> {
         let updateObservable = Observable<Base.DomainModel?>.create { observer in
@@ -102,8 +104,9 @@ public extension Reactive where Base: ProviderType {
                         }
 
                         do {
-                            let domainObject = try realmObjects.elementWithPolicy(policy: policy).flatMap { realmObject in
-                                try Base.Factory.createDomainModel(withPersistenceModel: realmObject, realm: realm)
+                            let realmObject = realmObjects.elementWithPolicy(pinPolicy: pinPolicy)
+                            let domainObject = try realmObject.flatMap { realmObject in
+                                try Base.Factory.createDomainModel(with: realmObject, realm: realm)
                             }
                             observer.onNext(domainObject)
                         } catch let error {

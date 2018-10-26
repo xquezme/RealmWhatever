@@ -15,6 +15,7 @@ extension Provider: ReactiveExtensionsProvider {}
 public extension Reactive where Base: ProviderType {
     public func query(
         _ specification: Base.Specification,
+        cursor: Cursor = .default,
         includeImmediateResults: Bool = true
     ) -> SignalProducer<[Base.DomainModel], NSError> {
         let updateProducer = SignalProducer<[Base.DomainModel], NSError> { observer, lifetime in
@@ -40,12 +41,10 @@ public extension Reactive where Base: ProviderType {
                         }
 
                         do {
-                            let domainObjects: [Base.DomainModel] = try realmObjects.map { realmObject in
-                                try Base.Factory.createDomainModel(
-                                    withPersistenceModel: realmObject,
-                                    realm: realm
-                                )
-                            }
+                            let domainObjects: [Base.DomainModel] = try Base.Factory.createDomainModels(
+                                with: realmObjects.apply(cursor),
+                                realm: realm
+                            )
 
                             observer.send(value: domainObjects)
                         } catch let error {
@@ -69,7 +68,7 @@ public extension Reactive where Base: ProviderType {
         }
 
         do {
-            let domainObjects = try self.base.query(specification)
+            let domainObjects = try self.base.query(specification, cursor: cursor)
             let immediateSignalProducer = SignalProducer<[Base.DomainModel], NSError>.init(value: domainObjects)
 
             return immediateSignalProducer.concat(updateProducer).skipRepeats()
@@ -80,7 +79,7 @@ public extension Reactive where Base: ProviderType {
 
     public func queryOne(
         _ specification: Base.Specification,
-        policy: QueryOnePolicy = .last,
+        pinPolicy: PinPolicy = .beginning,
         includeImmediateResult: Bool = true
     ) -> SignalProducer<Base.DomainModel?, NSError> {
         let updateProducer = SignalProducer<Base.DomainModel?, NSError> { observer, lifetime in
@@ -106,9 +105,10 @@ public extension Reactive where Base: ProviderType {
                         }
 
                         do {
-                            let domainObject = try realmObjects.elementWithPolicy(policy: policy).flatMap { realmObject in
+                            let realmObject = realmObjects.elementWithPolicy(pinPolicy: pinPolicy)
+                            let domainObject = try realmObject.flatMap { realmObject in
                                 try Base.Factory.createDomainModel(
-                                    withPersistenceModel: realmObject,
+                                    with: realmObject,
                                     realm: realm
                                 )
                             }

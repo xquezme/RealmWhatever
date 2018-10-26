@@ -11,6 +11,16 @@ import RealmSwift
 
 public protocol DomainConvertibleFactoryType {
     associatedtype PersistenceModel: RealmSwift.Object
-    associatedtype DomainModel: Hashable
-    static func createDomainModel(withPersistenceModel persistenceModel: PersistenceModel, realm: Realm) throws -> DomainModel
+    associatedtype DomainModel: Hashable & Equatable
+
+    static func createDomainModel(with persistenceModel: PersistenceModel, realm: Realm) throws -> DomainModel
+    static func createDomainModels(with persistenceModels: [PersistenceModel], realm: Realm) throws -> [DomainModel]
+}
+
+extension DomainConvertibleFactoryType {
+    static func createDomainModels(with persistenceModels: [PersistenceModel], realm: Realm) throws -> [DomainModel] {
+        return try persistenceModels.map {
+            try createDomainModel(with: $0, realm: realm)
+        }
+    }
 }
