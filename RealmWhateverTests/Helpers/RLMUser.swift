@@ -12,6 +12,8 @@ import RealmSwift
 
 class RLMUser: Object {
     @objc dynamic var uuid: String!
+    @objc dynamic var age: Int = 0
+    @objc dynamic var name: String!
 
     override class func primaryKey() -> String? {
         return "uuid"

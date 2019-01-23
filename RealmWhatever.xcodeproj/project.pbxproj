@@ -11,6 +11,11 @@
 		CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */; };
 		CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA7204C28920032C668 /* Specification+Realm.swift */; };
 		CF464CAA204C28F00032C668 /* Provider+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA9204C28F00032C668 /* Provider+Realm.swift */; };
+		CF8446F321EBB60B00454D6B /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914F20488E0100E70FA3 /* RLMUser.swift */; };
+		CF8446F421EBB60D00454D6B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF979151204891E800E70FA3 /* UserRepository.swift */; };
+		CF8446F521EBB61000454D6B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791532048921400E70FA3 /* User.swift */; };
+		CF8446F621EBB61200454D6B /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9791552048922B00E70FA3 /* UserFactory.swift */; };
+		CF8446F721EBB61800454D6B /* PlainRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97913A204889E500E70FA3 /* PlainRepositorySpec.swift */; };
 		CF979136204889E500E70FA3 /* RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF97912C204889E400E70FA3 /* RealmWhatever.framework */; };
 		CF97913D204889E500E70FA3 /* RealmWhatever.h in Headers */ = {isa = PBXBuildFile; fileRef = CF97912F204889E500E70FA3 /* RealmWhatever.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CF97914A20488A5100E70FA3 /* Specification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF97914920488A5100E70FA3 /* Specification.swift */; };
@@ -43,6 +48,7 @@
 		CF464CA7204C28920032C668 /* Specification+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Specification+Realm.swift"; sourceTree = "<group>"; };
 		CF464CA9204C28F00032C668 /* Provider+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Realm.swift"; sourceTree = "<group>"; };
 		CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Reactive.swift"; sourceTree = "<group>"; };
+		CF8446F221EBB39200454D6B /* RealmWhatever.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = RealmWhatever.podspec; sourceTree = "<group>"; };
 		CF97912C204889E400E70FA3 /* RealmWhatever.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmWhatever.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF97912F204889E500E70FA3 /* RealmWhatever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmWhatever.h; sourceTree = "<group>"; };
 		CF979130204889E500E70FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -167,6 +173,7 @@
 		CF979122204889E400E70FA3 = {
 			isa = PBXGroup;
 			children = (
+				CF8446F221EBB39200454D6B /* RealmWhatever.podspec */,
 				CF97912E204889E400E70FA3 /* RealmWhatever */,
 				CF979139204889E500E70FA3 /* RealmWhateverTests */,
 				CF97912D204889E400E70FA3 /* Products */,
@@ -366,6 +373,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -376,6 +384,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +436,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF8446F421EBB60D00454D6B /* UserRepository.swift in Sources */,
+				CF8446F321EBB60B00454D6B /* RLMUser.swift in Sources */,
+				CF8446F721EBB61800454D6B /* PlainRepositorySpec.swift in Sources */,
+				CF8446F521EBB61000454D6B /* User.swift in Sources */,
+				CF8446F621EBB61200454D6B /* UserFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

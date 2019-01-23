@@ -10,12 +10,10 @@ import Foundation
 
 struct User: Hashable {
     let uuid: UUID
+    let age: Int
+    let name: String
 
     var hashValue: Int {
         return self.uuid.hashValue
-    }
-
-    static func ==(lhs: User, rhs: User) -> Bool {
-        return lhs.uuid == rhs.uuid
     }
 }

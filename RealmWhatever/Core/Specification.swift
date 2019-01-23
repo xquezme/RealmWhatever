@@ -10,16 +10,16 @@ import Foundation
 import RealmSwift
 
 public protocol SpecificationType {
-    func predicate() -> NSPredicate?
-    func sortDescriptor() -> NSSortDescriptor?
+    var predicate: NSPredicate? { get }
+    var sortDescriptors: [NSSortDescriptor]? { get }
 }
 
 public extension SpecificationType {
-    public func predicate() -> NSPredicate? {
+    public var predicate: NSPredicate? {
         return nil
     }
 
-    public func sortDescriptor() -> NSSortDescriptor? {
+    public var sortDescriptors: [NSSortDescriptor]? {
         return nil
     }
 }

@@ -8,10 +8,10 @@ project 'RealmWhatever'
 
 target 'RealmWhatever' do
   # Realm
-  pod 'RealmSwift', '3.11.1'
+  pod 'RealmSwift', '3.13.1'
 
   # Rx
-  pod 'RxSwift', '4.3.1'
+  pod 'RxSwift', '4.4.0'
 
   # Reactive
   pod 'ReactiveSwift', '4.0.0'

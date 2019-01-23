@@ -17,7 +17,7 @@ public protocol DomainConvertibleFactoryType {
     static func createDomainModels(with persistenceModels: [PersistenceModel], realm: Realm) throws -> [DomainModel]
 }
 
-extension DomainConvertibleFactoryType {
+public extension DomainConvertibleFactoryType {
     static func createDomainModels(with persistenceModels: [PersistenceModel], realm: Realm) throws -> [DomainModel] {
         return try persistenceModels.map {
             try createDomainModel(with: $0, realm: realm)

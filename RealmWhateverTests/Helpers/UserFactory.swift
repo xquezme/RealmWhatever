@@ -8,14 +8,21 @@
 
 import Foundation
 import RealmWhatever
+import RealmSwift
+
+enum TransformError: Swift.Error {
+    case uuidNotConvertible(uuid: String)
+}
 
 final class UserFactory: DomainConvertibleFactoryType {
     typealias PersistenceModel = RLMUser
     typealias DomainModel = User
 
-    static func createDomainModel(withPersistenceModel persistenceModel: RLMUser) -> User? {
-        guard let uuid = UUID(uuidString: persistenceModel.uuid) else { return nil }
+    static func createDomainModel(with persistenceModel: RLMUser, realm: Realm) throws -> User {
+        guard let uuid = UUID(uuidString: persistenceModel.uuid) else {
+            throw TransformError.uuidNotConvertible(uuid: persistenceModel.uuid)
+        }
 
-        return User(uuid: uuid)
+        return User(uuid: uuid, age: persistenceModel.age, name: persistenceModel.name)
     }
 }

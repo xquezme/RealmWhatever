@@ -12,13 +12,30 @@ import RxSwift
 
 enum QuerySpecification {
     case byUUID(uuid: UUID)
+    case byAge(age: Int)
+    case byAgeSortedByName(age: Int)
 }
 
 extension QuerySpecification: SpecificationType {
-    func predicate() -> NSPredicate? {
+    var predicate: NSPredicate? {
         switch self {
-        case .byUUID(let uuid):
+        case let .byUUID(uuid):
             return NSPredicate(format: "uuid == %@", uuid.uuidString)
+        case let .byAge(age):
+            return NSPredicate(format: "age == %@", age as NSNumber)
+        case let .byAgeSortedByName(age):
+            return NSPredicate(format: "age == %@", age as NSNumber)
+        }
+    }
+
+    var sortDescriptors: [NSSortDescriptor]? {
+        switch self {
+        case .byUUID:
+            return nil
+        case .byAge:
+            return nil
+        case .byAgeSortedByName:
+            return [NSSortDescriptor(key: "name", ascending: true)]
         }
     }
 }
