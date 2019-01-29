@@ -9,24 +9,6 @@
 import Foundation
 import RealmSwift
 
-public protocol ProviderType: class {
-    associatedtype Specification: SpecificationType
-    associatedtype PersistenceModel
-    associatedtype DomainModel
-    associatedtype Factory: DomainConvertibleFactoryType
-        where
-            Factory.PersistenceModel == Self.PersistenceModel,
-            Factory.DomainModel == Self.DomainModel
-}
-
-open class Provider<
-    Specification_: SpecificationType,
-    Factory_: DomainConvertibleFactoryType
->: ProviderType {
-    public typealias Specification = Specification_
-    public typealias Factory = Factory_
-    public typealias PersistenceModel = Factory.PersistenceModel
-    public typealias DomainModel = Factory.DomainModel
-
+open class Provider<Specification: SpecificationType, PersistenceModel: RealmSwift.Object>: ProviderType {
     public init() {}
 }

@@ -13,21 +13,21 @@ import RealmSwift
 extension Provider: ReactiveExtensionsProvider {}
 
 public extension Reactive where Base: ProviderType {
-    public func query(
+    public func query<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
-        includeImmediateResults: Bool = true
-    ) -> SignalProducer<[Base.DomainModel], NSError> {
-        let updateProducer = SignalProducer<[Base.DomainModel], NSError> { observer, lifetime in
+        factory: F
+    ) -> SignalProducer<[F.DomainModel], NSError> where F.PersistenceModel == Base.PersistenceModel {
+        return SignalProducer<[F.DomainModel], NSError> { observer, lifetime in
             var token: NotificationToken?
 
             RealmNotificationThreadWrapper.shared.runSync {
                 do {
                     let realm = try Realm()
-                    let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
+                    let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
-                        let realmObjects: Results<Base.PersistenceModel>
+                        let realmObjects: Results<F.PersistenceModel>
 
                         switch changeset {
                         case let .initial(latestValue):
@@ -41,7 +41,7 @@ public extension Reactive where Base: ProviderType {
                         }
 
                         do {
-                            let domainObjects: [Base.DomainModel] = try Base.Factory.createDomainModels(
+                            let domainObjects: [F.DomainModel] = try factory.createDomainModels(
                                 with: realmObjects.apply(cursor),
                                 realm: realm
                             )
@@ -62,36 +62,23 @@ public extension Reactive where Base: ProviderType {
                 }
             }
         }
-
-        guard includeImmediateResults else {
-            return updateProducer.skipRepeats()
-        }
-
-        do {
-            let domainObjects = try self.base.query(specification, cursor: cursor)
-            let immediateSignalProducer = SignalProducer<[Base.DomainModel], NSError>.init(value: domainObjects)
-
-            return immediateSignalProducer.concat(updateProducer).skipRepeats()
-        } catch let error {
-            return SignalProducer<[Base.DomainModel], NSError>.init(error: error as NSError)
-        }
     }
 
-    public func queryOne(
+    public func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
-        includeImmediateResult: Bool = true
-    ) -> SignalProducer<Base.DomainModel?, NSError> {
-        let updateProducer = SignalProducer<Base.DomainModel?, NSError> { observer, lifetime in
+        factory: F
+    ) -> SignalProducer<F.DomainModel?, NSError> where F.PersistenceModel == Base.PersistenceModel {
+        return SignalProducer<F.DomainModel?, NSError> { observer, lifetime in
             var token: NotificationToken?
 
             RealmNotificationThreadWrapper.shared.runSync {
                 do {
                     let realm = try Realm()
-                    let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
+                    let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
-                        let realmObjects: Results<Base.PersistenceModel>
+                        let realmObjects: Results<F.PersistenceModel>
 
                         switch changeset {
                         case let .initial(latestValue):
@@ -107,7 +94,7 @@ public extension Reactive where Base: ProviderType {
                         do {
                             let realmObject = realmObjects.elementWithPolicy(pinPolicy: pinPolicy)
                             let domainObject = try realmObject.flatMap { realmObject in
-                                try Base.Factory.createDomainModel(
+                                try factory.createDomainModel(
                                     with: realmObject,
                                     realm: realm
                                 )
@@ -128,26 +115,10 @@ public extension Reactive where Base: ProviderType {
                 }
             }
         }
-
-        guard includeImmediateResult else {
-            return updateProducer.skipRepeats()
-        }
-
-        do {
-            let domainObject = try self.base.queryOne(specification)
-            let immediateSignalProducer = SignalProducer<Base.DomainModel?, NSError>.init(value: domainObject)
-
-            return immediateSignalProducer.concat(updateProducer).skipRepeats()
-        } catch let error {
-            return SignalProducer<Base.DomainModel?, NSError>.init(error: error as NSError)
-        }
     }
 
-    public func count(
-        _ specification: Base.Specification,
-        includeImmediateResults: Bool = true
-    ) -> SignalProducer<Int, NSError> {
-        let updateProducer = SignalProducer<Int, NSError> { observer, lifetime in
+    public func count(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
+        return SignalProducer<Int, NSError> { observer, lifetime in
             var token: NotificationToken?
 
             RealmNotificationThreadWrapper.shared.runSync {
@@ -178,16 +149,51 @@ public extension Reactive where Base: ProviderType {
                 }
             }
         }
+    }
+}
 
-        guard includeImmediateResults else {
-            return updateProducer.skipRepeats()
+public extension Reactive where Base: ProviderType {
+    public func querySync<F: DomainConvertibleFactoryType>(
+        _ specification: Base.Specification,
+        cursor: Cursor = .default,
+        factory: F
+    ) -> SignalProducer<[F.DomainModel], NSError> where F.PersistenceModel == Base.PersistenceModel {
+        do {
+            let domainObjects = try self.base.query(specification, cursor: cursor, factory: factory)
+
+            let immediateSignalProducer = SignalProducer<[F.DomainModel], NSError>.init(value: domainObjects)
+            let updateSignalProducer = self.query(specification, cursor: cursor, factory: factory)
+
+            return immediateSignalProducer.concat(updateSignalProducer)
+        } catch let error {
+            return SignalProducer<[F.DomainModel], NSError>.init(error: error as NSError)
         }
+    }
 
+    public func queryOneSync<F: DomainConvertibleFactoryType>(
+        _ specification: Base.Specification,
+        pinPolicy: PinPolicy = .beginning,
+        factory: F
+    ) -> SignalProducer<F.DomainModel?, NSError> where F.PersistenceModel == Base.PersistenceModel {
+        do {
+            let domainObject = try self.base.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
+
+            let immediateSignalProducer = SignalProducer<F.DomainModel?, NSError>.init(value: domainObject)
+            let updateSignalProducer = self.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
+
+            return immediateSignalProducer.concat(updateSignalProducer)
+        } catch let error {
+            return SignalProducer<F.DomainModel?, NSError>.init(error: error as NSError)
+        }
+    }
+
+    public func countSync(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
         do {
             let count = try self.base.count(specification)
             let immediateSignalProducer = SignalProducer<Int, NSError>.init(value: count)
+            let updateSignalProducer = self.count(specification)
 
-            return immediateSignalProducer.concat(updateProducer).skipRepeats()
+            return immediateSignalProducer.concat(updateSignalProducer)
         } catch let error {
             return SignalProducer<Int, NSError>.init(error: error as NSError)
         }

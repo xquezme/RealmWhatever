@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66F2F03522007244008C0DA0 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F03422007244008C0DA0 /* ProviderType.swift */; };
 		CC488AD27850F8EE33B5EF98 /* Pods_RealmWhatever.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 310082A79D54C86F4D3DEEFD /* Pods_RealmWhatever.framework */; };
 		CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6EF2F8206696B10092FF1F /* Provider+Realm+Reactive.swift */; };
 		CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF464CA7204C28920032C668 /* Specification+Realm.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		310082A79D54C86F4D3DEEFD /* Pods_RealmWhatever.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmWhatever.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66F2F03422007244008C0DA0 /* ProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		71E98E1D8901E896B1BC3497 /* Pods-RealmWhateverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhateverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FF969BB0B3C5833237902BC /* Pods-RealmWhateverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhateverTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhateverTests/Pods-RealmWhateverTests.release.xcconfig"; sourceTree = "<group>"; };
 		949DFCAC80E5883886A57905 /* Pods-RealmWhatever.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhatever.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever.debug.xcconfig"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				CF97914B20488BB700E70FA3 /* Provider.swift */,
 				CF97914920488A5100E70FA3 /* Specification.swift */,
 				CFA9D0402183AB7300D8D550 /* PinPolicy.swift */,
+				66F2F03422007244008C0DA0 /* ProviderType.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				CFA9D0412183AB7300D8D550 /* PinPolicy.swift in Sources */,
 				CFA9D0452183AD5300D8D550 /* Cursor+Realm.swift in Sources */,
 				CFA9D03F2183AAD800D8D550 /* Cursor.swift in Sources */,
+				66F2F03522007244008C0DA0 /* ProviderType.swift in Sources */,
 				CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */,
 				CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */,
 				CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */,

@@ -33,7 +33,7 @@ class PlainRepositorySpec: QuickSpec {
             }
 
             it("should query one user by uuid") {
-                let user = try! repository.queryOne(.byUUID(uuid: uuid))
+                let user = try! repository.queryOne(.byUUID(uuid: uuid), factory: UserFactory())
 
                 expect { user }.toNot(beNil())
                 expect { user!.uuid }.to(equal(uuid))
@@ -42,7 +42,7 @@ class PlainRepositorySpec: QuickSpec {
             }
 
             it("should query one user by age") {
-                let user = try! repository.queryOne(.byAge(age: 50))
+                let user = try! repository.queryOne(.byAge(age: 50), factory: UserFactory())
 
                 expect { user }.toNot(beNil())
                 expect { user!.uuid }.to(equal(uuid))
@@ -82,8 +82,8 @@ class PlainRepositorySpec: QuickSpec {
             }
 
             it("should query user by age with pin policy") {
-                let user = try! repository.queryOne(.byAgeSortedByName(age: 50), pinPolicy: .beginning)
-                let user3 = try! repository.queryOne(.byAgeSortedByName(age: 50), pinPolicy: .end)
+                let user = try! repository.queryOne(.byAgeSortedByName(age: 50), pinPolicy: .beginning, factory: UserFactory())
+                let user3 = try! repository.queryOne(.byAgeSortedByName(age: 50), pinPolicy: .end, factory: UserFactory())
 
                 expect { try repository.count(.byAgeSortedByName(age: 50)) }.to(equal(3))
 
@@ -101,19 +101,22 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 0, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
                 let user2 = try! repository.query(
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 1, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
                 let user3 = try! repository.query(
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 2, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
 
                 expect { user }.toNot(beNil())
@@ -134,19 +137,22 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 0, pinPolicy: .end
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
                 let user2 = try! repository.query(
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 1, pinPolicy: .end
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
                 let user3 = try! repository.query(
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         limit: 1, offset: 2, pinPolicy: .end
-                    )
+                    ),
+                    factory: UserFactory()
                 ).first
 
                 expect { user }.toNot(beNil())
@@ -167,7 +173,8 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         offset: 0, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 )
 
                 expect { users }.toNot(beNil())
@@ -188,7 +195,8 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         offset: 1, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 )
 
                 expect { users }.toNot(beNil())
@@ -206,7 +214,8 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         offset: 2, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 )
 
                 expect { users }.toNot(beNil())
@@ -221,7 +230,8 @@ class PlainRepositorySpec: QuickSpec {
                     .byAgeSortedByName(age: 50),
                     cursor: .init(
                         offset: 3, pinPolicy: .beginning
-                    )
+                    ),
+                    factory: UserFactory()
                 )
 
                 expect { users }.toNot(beNil())

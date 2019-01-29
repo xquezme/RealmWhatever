@@ -40,6 +40,6 @@ extension QuerySpecification: SpecificationType {
     }
 }
 
-final class UserRepository: RealmWhatever.Provider<QuerySpecification, UserFactory> {
+final class UserRepository: RealmWhatever.Provider<QuerySpecification, RLMUser> {
 
 }

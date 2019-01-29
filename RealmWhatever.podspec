@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RealmWhatever"
-  s.version      = "0.0.5-alpha"
+  s.version      = "0.0.6-alpha"
   s.summary      = "Persistence abstraction layer for Realm"
   s.description  = <<-EOS
   RealmWhatever abstracts persistence layer using Swift Generics to provide developers
