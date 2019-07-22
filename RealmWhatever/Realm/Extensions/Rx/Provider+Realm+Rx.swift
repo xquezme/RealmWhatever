@@ -13,7 +13,7 @@ import RealmSwift
 extension Provider: ReactiveCompatible {}
 
 public extension Reactive where Base: ProviderType {
-    public func query<F: DomainConvertibleFactoryType>(
+    func query<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
         factory: F
@@ -63,7 +63,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
     
-    public func queryOne<F: DomainConvertibleFactoryType>(
+    func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
         factory: F
@@ -113,7 +113,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func count(_ specification: Base.Specification) -> Observable<Int> {
+    func count(_ specification: Base.Specification) -> Observable<Int> {
         return Observable<Int>.create { observer in
             var token: NotificationToken?
 
@@ -154,7 +154,7 @@ public extension Reactive where Base: ProviderType {
 
 
 public extension Reactive where Base: ProviderType {
-    public func querySync<F: DomainConvertibleFactoryType>(
+    func querySync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
         factory: F
@@ -171,7 +171,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func queryOneSync<F: DomainConvertibleFactoryType>(
+    func queryOneSync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
         factory: F
@@ -188,7 +188,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func countSync(_ specification: Base.Specification) -> Observable<Int> {
+    func countSync(_ specification: Base.Specification) -> Observable<Int> {
         do {
             let count = try self.base.count(specification)
 

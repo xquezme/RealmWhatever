@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Cursor {
+public struct Cursor: Equatable {
     public static let `default` = Cursor()
     public let limit: Int?
     public let offset: Int?

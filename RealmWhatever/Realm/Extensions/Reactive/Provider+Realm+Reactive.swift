@@ -13,7 +13,7 @@ import RealmSwift
 extension Provider: ReactiveExtensionsProvider {}
 
 public extension Reactive where Base: ProviderType {
-    public func query<F: DomainConvertibleFactoryType>(
+    func query<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
         factory: F
@@ -64,7 +64,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func queryOne<F: DomainConvertibleFactoryType>(
+    func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
         factory: F
@@ -117,7 +117,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func count(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
+    func count(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
         return SignalProducer<Int, NSError> { observer, lifetime in
             var token: NotificationToken?
 
@@ -153,7 +153,7 @@ public extension Reactive where Base: ProviderType {
 }
 
 public extension Reactive where Base: ProviderType {
-    public func querySync<F: DomainConvertibleFactoryType>(
+    func querySync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
         factory: F
@@ -170,7 +170,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func queryOneSync<F: DomainConvertibleFactoryType>(
+    func queryOneSync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
         factory: F
@@ -187,7 +187,7 @@ public extension Reactive where Base: ProviderType {
         }
     }
 
-    public func countSync(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
+    func countSync(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
         do {
             let count = try self.base.count(specification)
             let immediateSignalProducer = SignalProducer<Int, NSError>.init(value: count)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum PinPolicy {
+public enum PinPolicy: Equatable {
     case beginning
     case end
 }

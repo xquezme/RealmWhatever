@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 public extension ProviderType where PersistenceModel: RealmSwift.Object {
-    public func query<F: DomainConvertibleFactoryType>(
+    func query<F: DomainConvertibleFactoryType>(
         _ specification: Specification,
         cursor: Cursor = .default,
         factory: F
@@ -25,7 +25,7 @@ public extension ProviderType where PersistenceModel: RealmSwift.Object {
         )
     }
 
-    public func queryOne<F: DomainConvertibleFactoryType>(
+    func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Specification,
         pinPolicy: PinPolicy = .beginning,
         factory: F
@@ -41,7 +41,7 @@ public extension ProviderType where PersistenceModel: RealmSwift.Object {
         }
     }
 
-    public func count(_ specification: Specification) throws -> Int {
+    func count(_ specification: Specification) throws -> Int {
         let realm = try Realm()
 
         let realmObjects = realm.objects(PersistenceModel.self).apply(specification)

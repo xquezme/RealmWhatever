@@ -15,11 +15,11 @@ public protocol SpecificationType {
 }
 
 public extension SpecificationType {
-    public var predicate: NSPredicate? {
+    var predicate: NSPredicate? {
         return nil
     }
 
-    public var sortDescriptors: [NSSortDescriptor]? {
+    var sortDescriptors: [NSSortDescriptor]? {
         return nil
     }
 }
