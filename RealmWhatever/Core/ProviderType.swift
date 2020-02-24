@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public protocol ProviderType: class {
+public protocol ProviderType: AnyObject {
     associatedtype Specification: SpecificationType
     associatedtype PersistenceModel: RealmSwift.Object
 }

@@ -75,7 +75,7 @@ extension Results {
 
                 return result
             }
-        case (let limit?, let offset?):
+        case let (limit?, offset?):
             if offset > count {
                 return []
             }

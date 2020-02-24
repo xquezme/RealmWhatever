@@ -26,6 +26,11 @@
 		CFA9D0412183AB7300D8D550 /* PinPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0402183AB7300D8D550 /* PinPolicy.swift */; };
 		CFA9D0432183AD4600D8D550 /* PinPolicy+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0422183AD4600D8D550 /* PinPolicy+Realm.swift */; };
 		CFA9D0452183AD5300D8D550 /* Cursor+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA9D0442183AD5300D8D550 /* Cursor+Realm.swift */; };
+		CFC347242404027F0062EEB7 /* Provider+Realm+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC347232404027F0062EEB7 /* Provider+Realm+Combine.swift */; };
+		CFC34726240402D40062EEB7 /* CombineExtensionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC34725240402D40062EEB7 /* CombineExtensionsProvider.swift */; };
+		CFC34728240406350062EEB7 /* CombineQueryObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC34727240406350062EEB7 /* CombineQueryObservableObject.swift */; };
+		CFC3472A24040B8C0062EEB7 /* CombineQueryOneObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3472924040B8C0062EEB7 /* CombineQueryOneObservableObject.swift */; };
+		CFC3472C24040D840062EEB7 /* CombineCountObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3472B24040D840062EEB7 /* CombineCountObservableObject.swift */; };
 		CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */; };
 		CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */; };
 		DBEDEB142309AB11686AAC19 /* Pods_RealmWhateverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F945F6ACA1DAB2B25D6BB70F /* Pods_RealmWhateverTests.framework */; };
@@ -68,6 +73,11 @@
 		CFA9D0402183AB7300D8D550 /* PinPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPolicy.swift; sourceTree = "<group>"; };
 		CFA9D0422183AD4600D8D550 /* PinPolicy+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PinPolicy+Realm.swift"; sourceTree = "<group>"; };
 		CFA9D0442183AD5300D8D550 /* Cursor+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cursor+Realm.swift"; sourceTree = "<group>"; };
+		CFC347232404027F0062EEB7 /* Provider+Realm+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Combine.swift"; sourceTree = "<group>"; };
+		CFC34725240402D40062EEB7 /* CombineExtensionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineExtensionsProvider.swift; sourceTree = "<group>"; };
+		CFC34727240406350062EEB7 /* CombineQueryObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineQueryObservableObject.swift; sourceTree = "<group>"; };
+		CFC3472924040B8C0062EEB7 /* CombineQueryOneObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineQueryOneObservableObject.swift; sourceTree = "<group>"; };
+		CFC3472B24040D840062EEB7 /* CombineCountObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineCountObservableObject.swift; sourceTree = "<group>"; };
 		CFE50078204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmNotificationThreadWrapper.swift; sourceTree = "<group>"; };
 		CFE50079204C340C00FD8A52 /* Provider+Realm+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Provider+Realm+Rx.swift"; sourceTree = "<group>"; };
 		EBC5E407AEE299C0FC945F04 /* Pods-RealmWhatever.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmWhatever.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmWhatever/Pods-RealmWhatever.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +175,7 @@
 		CF6EF2F7206695F00092FF1F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CFC347222404026A0062EEB7 /* Combine */,
 				CF6EF2F5206695850092FF1F /* Reactive */,
 				CFE50077204C340C00FD8A52 /* Rx */,
 				CF6EF2F6206695AE0092FF1F /* Shared */,
@@ -227,6 +238,18 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		CFC347222404026A0062EEB7 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				CFC3472B24040D840062EEB7 /* CombineCountObservableObject.swift */,
+				CFC34725240402D40062EEB7 /* CombineExtensionsProvider.swift */,
+				CFC34727240406350062EEB7 /* CombineQueryObservableObject.swift */,
+				CFC3472924040B8C0062EEB7 /* CombineQueryOneObservableObject.swift */,
+				CFC347232404027F0062EEB7 /* Provider+Realm+Combine.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
 		CFE50077204C340C00FD8A52 /* Rx */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +277,7 @@
 			buildConfigurationList = CF979140204889E500E70FA3 /* Build configuration list for PBXNativeTarget "RealmWhatever" */;
 			buildPhases = (
 				E5135D7C6BFA09E2095BDE4C /* [CP] Check Pods Manifest.lock */,
+				4406443ADB080EE8E045C004 /* [CP-User] SwiftFormat */,
 				CF979127204889E400E70FA3 /* Sources */,
 				CF979128204889E400E70FA3 /* Frameworks */,
 				CF979129204889E400E70FA3 /* Headers */,
@@ -345,6 +369,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4406443ADB080EE8E045C004 /* [CP-User] SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] SwiftFormat";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "  if which swiftformat >/dev/null; then\n    swiftformat --swiftversion 5.0 --disable redundantSelf ./RealmWhatever\n  else\n    echo \"warning: SwiftFormat not installed, download it from https://github.com/nicklockwood/SwiftFormat\"\n  fi\n";
+		};
 		6834EF68D72CBB4018BF3A83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,13 +447,18 @@
 				CFA9D0432183AD4600D8D550 /* PinPolicy+Realm.swift in Sources */,
 				CF97914C20488BB700E70FA3 /* Provider.swift in Sources */,
 				CF464CA8204C28920032C668 /* Specification+Realm.swift in Sources */,
+				CFC3472A24040B8C0062EEB7 /* CombineQueryOneObservableObject.swift in Sources */,
 				CFE5007A204C340C00FD8A52 /* RealmNotificationThreadWrapper.swift in Sources */,
+				CFC3472C24040D840062EEB7 /* CombineCountObservableObject.swift in Sources */,
 				CFA9D0412183AB7300D8D550 /* PinPolicy.swift in Sources */,
 				CFA9D0452183AD5300D8D550 /* Cursor+Realm.swift in Sources */,
+				CFC347242404027F0062EEB7 /* Provider+Realm+Combine.swift in Sources */,
 				CFA9D03F2183AAD800D8D550 /* Cursor.swift in Sources */,
 				66F2F03522007244008C0DA0 /* ProviderType.swift in Sources */,
 				CF1FF177217CC92300B0B372 /* Provider+Realm+Reactive.swift in Sources */,
+				CFC34728240406350062EEB7 /* CombineQueryObservableObject.swift in Sources */,
 				CF97914E20488C9800E70FA3 /* DomainConvertibleFactory.swift in Sources */,
+				CFC34726240402D40062EEB7 /* CombineExtensionsProvider.swift in Sources */,
 				CFE5007B204C340C00FD8A52 /* Provider+Realm+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +543,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -558,6 +598,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -582,7 +623,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -604,7 +645,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.xquezme.RealmWhatever;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

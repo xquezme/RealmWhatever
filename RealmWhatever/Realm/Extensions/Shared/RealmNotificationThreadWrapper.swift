@@ -19,12 +19,12 @@ final class RealmNotificationThreadWrapper: NSObject {
     private lazy var thread: Thread = {
         let thread = Thread(target: self, selector: #selector(self.loop), object: nil)
 
-        thread.name = "RealmWhatever-Thread-\(UUID().uuidString)"
+        thread.name = "RealmWhatever-Thread"
 
         return thread
     }()
 
-    private var block: (() -> Void)!
+    private var block: (() -> Void)?
 
     @objc private func loop() {
         while self.thread.isCancelled == false {
@@ -37,7 +37,9 @@ final class RealmNotificationThreadWrapper: NSObject {
         Thread.exit()
     }
 
-    @objc private func runBlock() { self.block() }
+    @objc private func runBlock() {
+        self.block?()
+    }
 
     func runSync(_ block: @escaping () -> Void) {
         self.block = block
@@ -55,7 +57,7 @@ final class RealmNotificationThreadWrapper: NSObject {
         self.block = block
 
         self.perform(
-            #selector(runBlock),
+            #selector(self.runBlock),
             on: self.thread,
             with: nil,
             waitUntilDone: false,

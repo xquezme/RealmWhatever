@@ -1,39 +1,45 @@
 PODS:
-  - Nimble (8.0.5)
-  - Quick (2.1.0)
   - ReactiveSwift (6.2.0)
   - Realm (5.0.0-beta.2):
     - Realm/Headers (= 5.0.0-beta.2)
   - Realm/Headers (5.0.0-beta.2)
   - RealmSwift (5.0.0-beta.2):
     - Realm (= 5.0.0-beta.2)
+  - RealmWhatever (1.0.0):
+    - RealmWhatever/Default (= 1.0.0)
+  - RealmWhatever/Combine (1.0.0):
+    - RealmWhatever/Core
+  - RealmWhatever/Core (1.0.0):
+    - RealmSwift
+  - RealmWhatever/Default (1.0.0):
+    - RealmWhatever/Combine
+    - RealmWhatever/Core
   - RxSwift (5.0.1)
 
 DEPENDENCIES:
-  - Nimble (= 8.0.5)
-  - Quick (= 2.1.0)
   - ReactiveSwift (= 6.2.0)
   - RealmSwift (= 5.0.0-beta.2)
+  - RealmWhatever (from `../`)
   - RxSwift (= 5.0.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Quick
   trunk:
-    - Nimble
     - ReactiveSwift
     - Realm
     - RealmSwift
     - RxSwift
 
+EXTERNAL SOURCES:
+  RealmWhatever:
+    :path: "../"
+
 SPEC CHECKSUMS:
-  Nimble: 4ab1aeb9b45553c75b9687196b0fa0713170a332
-  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
   ReactiveSwift: 3dc8800378110b13d40b46ab362afa9f6bcffc6c
   Realm: d4359a0d12a7abd3566e12df4e12ad450ba64633
   RealmSwift: 2c2271c1a5c07b812840ac0576dde12294cee82c
+  RealmWhatever: 5a11be31f45127340c29444a6f2809b057502284
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
 
-PODFILE CHECKSUM: 09412fd23032927b369bdcf4016c4c0c26705072
+PODFILE CHECKSUM: 8183b42339c7f33024db64e9254e675adf320844
 
 COCOAPODS: 1.8.4

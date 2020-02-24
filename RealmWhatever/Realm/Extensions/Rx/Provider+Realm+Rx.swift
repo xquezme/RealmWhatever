@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import RxSwift
 import RealmSwift
+import RxSwift
 
 extension Provider: ReactiveCompatible {}
 
@@ -16,14 +16,16 @@ public extension Reactive where Base: ProviderType {
     func query<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
     ) -> Observable<[F.DomainModel]> where F.PersistenceModel == Base.PersistenceModel {
         return Observable<[F.DomainModel]>.create { observer in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runAsync {
                 do {
-                    let realm = try Realm()
+                    let realm = try Realm(configuration: realmConfiguration)
                     let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
@@ -46,34 +48,38 @@ public extension Reactive where Base: ProviderType {
                                 realm: realm
                             )
                             observer.onNext(domainObjects)
-                        } catch let error {
+                        } catch {
                             observer.onError(error)
                         }
                     }
-                } catch let error {
+                } catch {
                     observer.onError(error)
                 }
             }
 
             return Disposables.create {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .distinctUntilChanged()
+        .observeOn(scheduler)
     }
-    
+
     func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
     ) -> Observable<F.DomainModel?> where F.PersistenceModel == Base.PersistenceModel {
         return Observable<F.DomainModel?>.create { observer in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runAsync {
                 do {
-                    let realm = try Realm()
+                    let realm = try Realm(configuration: realmConfiguration)
                     let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
@@ -96,30 +102,36 @@ public extension Reactive where Base: ProviderType {
                                 try factory.createDomainModel(with: realmObject, realm: realm)
                             }
                             observer.onNext(domainObject)
-                        } catch let error {
+                        } catch {
                             observer.onError(error)
                         }
                     }
-                } catch let error {
+                } catch {
                     observer.onError(error)
                 }
             }
 
             return Disposables.create {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .distinctUntilChanged()
+        .observeOn(scheduler)
     }
 
-    func count(_ specification: Base.Specification) -> Observable<Int> {
+    func count(
+        _ specification: Base.Specification,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
+    ) -> Observable<Int> {
         return Observable<Int>.create { observer in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runAsync {
                 do {
-                    let realm = try Realm()
+                    let realm = try Realm(configuration: realmConfiguration)
                     let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
@@ -138,35 +150,43 @@ public extension Reactive where Base: ProviderType {
 
                         observer.onNext(realmObjects.count)
                     }
-                } catch let error {
+                } catch {
                     observer.onError(error)
                 }
             }
 
             return Disposables.create {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .distinctUntilChanged()
+        .observeOn(scheduler)
     }
 }
-
 
 public extension Reactive where Base: ProviderType {
     func querySync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
     ) -> Observable<[F.DomainModel]> where F.PersistenceModel == Base.PersistenceModel {
         do {
             let domainObjects = try self.base.query(specification, cursor: cursor, factory: factory)
 
-            let immediateObservable = Observable<[F.DomainModel]>.just(domainObjects)
-            let updateObservable = self.query(specification, cursor: cursor, factory: factory)
-
-            return immediateObservable.concat(updateObservable)
-        } catch let error {
+            return self
+                .query(
+                    specification,
+                    cursor: cursor,
+                    factory: factory,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .startWith(domainObjects)
+        } catch {
             return Observable.error(error)
         }
     }
@@ -174,29 +194,43 @@ public extension Reactive where Base: ProviderType {
     func queryOneSync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
-        factory: F
-   ) -> Observable<F.DomainModel?> where F.PersistenceModel == Base.PersistenceModel {
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
+    ) -> Observable<F.DomainModel?> where F.PersistenceModel == Base.PersistenceModel {
         do {
             let domainObject = try self.base.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
 
-            let immediateObservable = Observable<F.DomainModel?>.just(domainObject)
-            let updateObservable = self.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
-
-            return immediateObservable.concat(updateObservable)
-        } catch let error {
+            return self
+                .queryOne(
+                    specification,
+                    pinPolicy: pinPolicy,
+                    factory: factory,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .startWith(domainObject)
+        } catch {
             return Observable.error(error)
         }
     }
 
-    func countSync(_ specification: Base.Specification) -> Observable<Int> {
+    func countSync(
+        _ specification: Base.Specification,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance
+    ) -> Observable<Int> {
         do {
             let count = try self.base.count(specification)
 
-            let immediateObservable = Observable<Int>.just(count)
-            let updateObservable = self.count(specification)
-
-            return immediateObservable.concat(updateObservable)
-        } catch let error {
+            return self
+                .count(
+                    specification,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .startWith(count)
+        } catch {
             return Observable.error(error)
         }
     }

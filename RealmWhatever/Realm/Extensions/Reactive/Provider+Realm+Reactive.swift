@@ -16,14 +16,16 @@ public extension Reactive where Base: ProviderType {
     func query<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
     ) -> SignalProducer<[F.DomainModel], NSError> where F.PersistenceModel == Base.PersistenceModel {
         return SignalProducer<[F.DomainModel], NSError> { observer, lifetime in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runAsync {
                 do {
-                    let realm = try Realm()
+                    let realm = try Realm(configuration: realmConfiguration)
                     let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
@@ -47,34 +49,38 @@ public extension Reactive where Base: ProviderType {
                             )
 
                             observer.send(value: domainObjects)
-                        } catch let error {
+                        } catch {
                             observer.send(error: error as NSError)
                         }
                     }
-                } catch let error {
+                } catch {
                     observer.send(error: error as NSError)
                 }
             }
 
             lifetime.observeEnded {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .skipRepeats()
+        .observe(on: scheduler)
     }
 
     func queryOne<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
     ) -> SignalProducer<F.DomainModel?, NSError> where F.PersistenceModel == Base.PersistenceModel {
         return SignalProducer<F.DomainModel?, NSError> { observer, lifetime in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
+            RealmNotificationThreadWrapper.shared.runAsync {
                 do {
-                    let realm = try Realm()
+                    let realm = try Realm(configuration: realmConfiguration)
                     let objects = realm.objects(F.PersistenceModel.self).apply(specification)
 
                     token = objects.observe { [weak token] changeset in
@@ -100,29 +106,35 @@ public extension Reactive where Base: ProviderType {
                                 )
                             }
                             observer.send(value: domainObject)
-                        } catch let error {
+                        } catch {
                             observer.send(error: error as NSError)
                         }
                     }
-                } catch let error {
+                } catch {
                     observer.send(error: error as NSError)
                 }
             }
 
             lifetime.observeEnded {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .skipRepeats()
+        .observe(on: scheduler)
     }
 
-    func count(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
+    func count(
+        _ specification: Base.Specification,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
+    ) -> SignalProducer<Int, NSError> {
         return SignalProducer<Int, NSError> { observer, lifetime in
             var token: NotificationToken?
 
-            RealmNotificationThreadWrapper.shared.runSync {
-                let realm = try! Realm()
+            RealmNotificationThreadWrapper.shared.runAsync {
+                let realm = try! Realm(configuration: realmConfiguration)
                 let objects = realm.objects(Base.PersistenceModel.self).apply(specification)
 
                 token = objects.observe { [weak token] changeset in
@@ -144,11 +156,13 @@ public extension Reactive where Base: ProviderType {
             }
 
             lifetime.observeEnded {
-                RealmNotificationThreadWrapper.shared.runSync {
+                RealmNotificationThreadWrapper.shared.runAsync {
                     token?.invalidate()
                 }
             }
         }
+        .skipRepeats()
+        .observe(on: scheduler)
     }
 }
 
@@ -156,16 +170,23 @@ public extension Reactive where Base: ProviderType {
     func querySync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         cursor: Cursor = .default,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
     ) -> SignalProducer<[F.DomainModel], NSError> where F.PersistenceModel == Base.PersistenceModel {
         do {
             let domainObjects = try self.base.query(specification, cursor: cursor, factory: factory)
 
-            let immediateSignalProducer = SignalProducer<[F.DomainModel], NSError>.init(value: domainObjects)
-            let updateSignalProducer = self.query(specification, cursor: cursor, factory: factory)
-
-            return immediateSignalProducer.concat(updateSignalProducer)
-        } catch let error {
+            return self
+                .query(
+                    specification,
+                    cursor: cursor,
+                    factory: factory,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .prefix(value: domainObjects)
+        } catch {
             return SignalProducer<[F.DomainModel], NSError>.init(error: error as NSError)
         }
     }
@@ -173,28 +194,43 @@ public extension Reactive where Base: ProviderType {
     func queryOneSync<F: DomainConvertibleFactoryType>(
         _ specification: Base.Specification,
         pinPolicy: PinPolicy = .beginning,
-        factory: F
+        factory: F,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
     ) -> SignalProducer<F.DomainModel?, NSError> where F.PersistenceModel == Base.PersistenceModel {
         do {
             let domainObject = try self.base.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
 
-            let immediateSignalProducer = SignalProducer<F.DomainModel?, NSError>.init(value: domainObject)
-            let updateSignalProducer = self.queryOne(specification, pinPolicy: pinPolicy, factory: factory)
-
-            return immediateSignalProducer.concat(updateSignalProducer)
-        } catch let error {
+            return self
+                .queryOne(
+                    specification,
+                    pinPolicy: pinPolicy,
+                    factory: factory,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .prefix(value: domainObject)
+        } catch {
             return SignalProducer<F.DomainModel?, NSError>.init(error: error as NSError)
         }
     }
 
-    func countSync(_ specification: Base.Specification) -> SignalProducer<Int, NSError> {
+    func countSync(
+        _ specification: Base.Specification,
+        realmConfiguration: Realm.Configuration = .defaultConfiguration,
+        scheduler: Scheduler = UIScheduler()
+    ) -> SignalProducer<Int, NSError> {
         do {
             let count = try self.base.count(specification)
-            let immediateSignalProducer = SignalProducer<Int, NSError>.init(value: count)
-            let updateSignalProducer = self.count(specification)
 
-            return immediateSignalProducer.concat(updateSignalProducer)
-        } catch let error {
+            return self
+                .count(
+                    specification,
+                    realmConfiguration: realmConfiguration,
+                    scheduler: scheduler
+                )
+                .prefix(value: count)
+        } catch {
             return SignalProducer<Int, NSError>.init(error: error as NSError)
         }
     }
